@@ -1,0 +1,26 @@
+services:
+  api:
+    build: ./
+    ports:
+      - 5000:5000
+    environment:
+      DATABASE_USER: "postgres"
+      DATABASE_HOST: "db_postgres"
+      DATABASE_NAME: "dev"
+      DATABASE_PASSWORD: "postgres"
+    depends_on:
+      - db_postgres
+
+  db_postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pg_data:
