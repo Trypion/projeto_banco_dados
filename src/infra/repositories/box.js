@@ -9,6 +9,18 @@ class BoxRepository {
     return Object.assign(box, BoxModel);
   }
 
+  async boxes_total_revenue() {
+    const { rows } = await this.db.query(
+      `select boxes.name as box_name, banks.name as bank_name, sum(value) as total from contracts
+      join boxes using(box_id)
+      join banks using(bank_id)
+      group by boxes.name, banks.name
+      order by total desc`
+    );
+
+    return rows;
+  }
+
   async find_by_id(id) {
     const { rows } = await this.db.query(
       `select box_id, name, created_at, deleted_at from boxes

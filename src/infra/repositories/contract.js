@@ -9,6 +9,16 @@ class ContractRepository {
     return Object.assign(contract, ContractModel);
   }
 
+  async count_contract_by_status() {
+    const { rows } = await this.db.query(
+      `select status.name, count(*) from contracts
+      join status using(status_id)
+      group by status.name`
+    );
+
+    return rows;
+  }
+
   async contract_history(id) {
     const { rows } = await this.tb.query(
       `select analysts.name as analyst_name, ce.name as contract_event_name, ce.created_at from contract_events ce

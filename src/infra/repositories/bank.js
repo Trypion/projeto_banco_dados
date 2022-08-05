@@ -1,4 +1,4 @@
-const BankModel = require('../../models/bank.js');
+const BankModel = require("../../models/bank.js");
 
 class BankRepository {
   constructor(db) {
@@ -7,6 +7,18 @@ class BankRepository {
 
   serialyze(bank) {
     return Object.assign(bank, BankModel);
+  }
+
+  async banks_total_revenue() {
+    const { rows } = await this.db.query(
+      `select banks.name, sum(value) as total from contracts
+      join boxes using(box_id)
+      join banks using(bank_id)
+      group by banks.name
+      order by total desc`
+    );
+
+    return rows;
   }
 
   async find_by_id(id) {
@@ -19,7 +31,7 @@ class BankRepository {
 
     return this.serialyze(rows[0]);
   }
-  
+
   async find_all() {
     const { rows } = await this.db.query(
       `select bank_id, name, number, created_at, deleted_at from banks`
@@ -27,7 +39,7 @@ class BankRepository {
 
     return rows.map(this.serialyze);
   }
-  
+
   async create(bank) {
     const { rows } = await this.db.query(
       `insert into banks (name, number, created_at) values ($1) returning bank_id`,
@@ -36,7 +48,7 @@ class BankRepository {
 
     return this.serialyze(rows[0]);
   }
-  
+
   async update(bank) {
     const { rows } = await this.db.query(
       `update banks set name = $1, number = $2, deleted_at = $3 where bank_id = $4 returning bank_id`,
@@ -45,7 +57,7 @@ class BankRepository {
 
     return this.serialyze(rows[0]);
   }
-  
+
   async delete(id) {
     const { rows } = await this.db.query(
       `update banks set deleted_at = $1 where bank_id = $2 returning bank_id`,
