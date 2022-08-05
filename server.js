@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const service = require("./src/services/contract");
-const database = require("./src/database");
+const database = require("./src/infra/database");
 const options = require("./options");
 const router = express.Router();
 

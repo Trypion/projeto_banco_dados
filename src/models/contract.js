@@ -1,5 +1,5 @@
 module.exports = {
-  id: Number,
+  contract_id: Number,
   client_id: Number,
   status_id: Number,
   bank_id: Number,
