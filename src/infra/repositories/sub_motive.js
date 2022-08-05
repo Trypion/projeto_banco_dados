@@ -6,7 +6,7 @@ class SubMotiveRepository {
   }
 
   serialyze(sub_motive) {
-    return Object.assign(sub_motive, SubMotiveModel);
+    return new SubMotiveModel(sub_motive);
   }
 
   async find_by_id(id) {

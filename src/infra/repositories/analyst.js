@@ -6,7 +6,7 @@ class AnalystRepository {
   }
 
   serialyze(analyst) {
-    return Object.assign(analyst, AnalystModel);
+    return new AnalystModel(analyst);
   }
 
   async find_by_id(id) {

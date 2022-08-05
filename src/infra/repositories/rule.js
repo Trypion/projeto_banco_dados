@@ -6,7 +6,7 @@ class RuleRepository {
   }
 
   serialyze(rule) {
-    return Object.assign(rule, RuleModel);
+    return new RuleModel(rule);
   }
 
   async find_by_id(id) {

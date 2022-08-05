@@ -6,7 +6,7 @@ class ClientRepository {
   }
 
   serialyze(client) {
-    return Object.assign(client, ClientModel);
+    return new ClientModel(client);
   }
 
   async total_revenue() {

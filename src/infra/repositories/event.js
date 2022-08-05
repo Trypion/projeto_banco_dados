@@ -6,7 +6,7 @@ class EventRepository {
   }
 
   serialyze(event) {
-    return Object.assign(event, EventModel);
+    return new EventModel(event);
   }
 
   async find_by_id(id) {

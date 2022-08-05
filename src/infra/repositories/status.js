@@ -6,7 +6,7 @@ class StatusRepository {
   }
 
   serialyze(status) {
-    return Object.assign(status, StatusModel);
+    return new StatusModel(status);
   }
 
   async find_by_id(id) {

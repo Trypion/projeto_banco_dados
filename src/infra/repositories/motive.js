@@ -1,4 +1,4 @@
-const MotiveModel = require("../models/motive");
+const MotiveModel = require("../../models/motive");
 
 class MotiveRepository {
   constructor(db) {

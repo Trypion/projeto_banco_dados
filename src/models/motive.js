@@ -1,7 +1,11 @@
-module.exports = {
-  motive_id: Number,
-  status_id: Number,
-  name: String,
-  created_at: Date,
-  deleted_at: Date,
-};
+class MotiveModel {
+  constructor(motive) {
+    this.motive_id = motive.motive_id;
+    this.status_id = motive.status_id;
+    this.name = motive.name;
+    this.created_at = motive.created_at;
+    this.deleted_at = motive.deleted_at;
+  }
+}
+
+module.exports = MotiveModel;

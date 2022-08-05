@@ -6,7 +6,7 @@ class BankRepository {
   }
 
   serialyze(bank) {
-    return Object.assign(bank, BankModel);
+    return new BankModel(bank);
   }
 
   async total_revenue() {

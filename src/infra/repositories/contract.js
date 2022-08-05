@@ -6,7 +6,7 @@ class ContractRepository {
   }
 
   serialyze(contract) {
-    return Object.assign(contract, ContractModel);
+    return new ContractModel(contract);
   }
 
   async count_by_status() {
@@ -36,14 +36,14 @@ class ContractRepository {
     select clients.name as client_name, banks.name as bank_name, contracts.value, contracts.created_at from contracts
     join clients using(client_id)
     join boxes using(box_id)
-    join banks using(bank_id)`);
+    join banks using(box_id)`);
 
     return rows;
   }
 
   async find_by_id(id) {
     const { rows } = await this.db.query(
-      `select contract_id, client_id, status_id, bank_id, value, created_at, deleted_at from contracts
+      `select contract_id, client_id, status_id, box_id, value, created_at, deleted_at from contracts
       where contract_id = $1
       limit 1`,
       [id]
@@ -54,7 +54,7 @@ class ContractRepository {
 
   async find_all() {
     const { rows } = await this.db.query(
-      `select contract_id, client_id, status_id, bank_id, value, created_at, deleted_at from contracts`
+      `select contract_id, client_id, status_id, box_id, value, created_at, deleted_at from contracts`
     );
 
     return rows.map(this.serialyze);
@@ -62,11 +62,11 @@ class ContractRepository {
 
   async create(contract) {
     const { rows } = await this.db.query(
-      `insert into contracts (client_id, status_id, bank_id, value, created_at) values ($1, $2, $3, $4, $5) returning contract_id`,
+      `insert into contracts (client_id, status_id, box_id, value, created_at) values ($1, $2, $3, $4, $5) returning contract_id`,
       [
         contract.client_id,
         contract.status_id,
-        contract.bank_id,
+        contract.box_id,
         contract.value,
         contract.created_at,
       ]
@@ -77,11 +77,11 @@ class ContractRepository {
 
   async update(contract) {
     const { rows } = await this.db.query(
-      `update contracts set client_id = $1, status_id = $2, bank_id = $3, value = $4, deleted_at = $5 where contract_id = $6 returning contract_id`,
+      `update contracts set client_id = $1, status_id = $2, box_id = $3, value = $4, deleted_at = $5 where contract_id = $6 returning contract_id`,
       [
         contract.client_id,
         contract.status_id,
-        contract.bank_id,
+        contract.box_id,
         contract.value,
         contract.deleted_at,
         contract.contract_id,

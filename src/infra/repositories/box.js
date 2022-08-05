@@ -6,7 +6,7 @@ class BoxRepository {
   }
 
   serialyze(box) {
-    return Object.assign(box, BoxModel);
+    return new BoxModel(box);
   }
 
   async total_revenue() {
