@@ -9,7 +9,7 @@ class ContractRepository {
     return Object.assign(contract, ContractModel);
   }
 
-  async count_contract_by_status() {
+  async count_by_status() {
     const { rows } = await this.db.query(
       `select status.name, count(*) from contracts
       join status using(status_id)

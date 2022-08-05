@@ -9,7 +9,7 @@ class BankRepository {
     return Object.assign(bank, BankModel);
   }
 
-  async banks_total_revenue() {
+  async total_revenue() {
     const { rows } = await this.db.query(
       `select banks.name, sum(value) as total from contracts
       join boxes using(box_id)

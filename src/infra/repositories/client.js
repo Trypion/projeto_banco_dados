@@ -9,7 +9,7 @@ class ClientRepository {
     return Object.assign(client, ClientModel);
   }
 
-  async clients_total_revenue() {
+  async total_revenue() {
     const { rows } = await this.db.query(
       `select name, sum(value) as total from contracts
       join clients using(client_id)
