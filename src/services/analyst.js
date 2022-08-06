@@ -15,7 +15,10 @@ const factory = ({ router, analyst_repository }) => {
   });
 
   router.put("/analyst/:id", async (req, res) => {
-    const contract = await analyst_repository.update(req.params.id, req.body);
+    const contract = await analyst_repository.update({
+      analyst_id: req.params.id,
+      ...req.body,
+    });
     res.json(contract);
   });
 
@@ -24,7 +27,6 @@ const factory = ({ router, analyst_repository }) => {
     res.json(contract);
   });
 
-  
   return router;
 };
 

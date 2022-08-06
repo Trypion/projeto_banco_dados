@@ -22,7 +22,7 @@ class EventRepository {
 
   async find_all() {
     const { rows } = await this.db.query(
-      `select contract_events_id, contract_id, analyst_id, name, created_at from contract_events`
+      `select contract_event_id, contract_id, analyst_id, name, created_at from contract_events`
     );
 
     return rows.map(this.serialyze);

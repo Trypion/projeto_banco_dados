@@ -23,7 +23,7 @@ class BankRepository {
 
   async find_by_id(id) {
     const { rows } = await this.db.query(
-      `select bank_id, name, number, created_at, deleted_at from banks
+      `select bank_id, name, created_at, deleted_at from banks
       where bank_id = $1
       limit 1`,
       [id]
@@ -34,7 +34,7 @@ class BankRepository {
 
   async find_all() {
     const { rows } = await this.db.query(
-      `select bank_id, name, number, created_at, deleted_at from banks`
+      `select bank_id, name, created_at, deleted_at from banks`
     );
 
     return rows.map(this.serialyze);
@@ -42,8 +42,8 @@ class BankRepository {
 
   async create(bank) {
     const { rows } = await this.db.query(
-      `insert into banks (name, number, created_at) values ($1) returning bank_id`,
-      [bank.name, bank.created_at]
+      `insert into banks (name, created_at) values ($1, $2) returning bank_id`,
+      [bank.name, new Date()]
     );
 
     return this.serialyze(rows[0]);
@@ -51,7 +51,7 @@ class BankRepository {
 
   async update(bank) {
     const { rows } = await this.db.query(
-      `update banks set name = $1, number = $2, deleted_at = $3 where bank_id = $4 returning bank_id`,
+      `update banks set name = $1, deleted_at = $2 where bank_id = $3 returning bank_id`,
       [bank.name, bank.deleted_at, bank.bank_id]
     );
 

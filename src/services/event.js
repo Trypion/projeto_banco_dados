@@ -15,7 +15,10 @@ const factory = ({ router, event_repository }) => {
   });
 
   router.put("/events/:id", async (req, res) => {
-    const event = await event_repository.update(req.params.id, req.body);
+    const event = await event_repository.update({
+      contract_event_id: req.params.id,
+      ...req.body,
+    });
     res.json(event);
   });
 
@@ -23,7 +26,7 @@ const factory = ({ router, event_repository }) => {
     const event = await event_repository.delete(req.params.id);
     res.json(event);
   });
-  
+
   return router;
 };
 

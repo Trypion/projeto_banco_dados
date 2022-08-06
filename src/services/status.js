@@ -15,7 +15,10 @@ const factory = ({ router, status_repository }) => {
   });
 
   router.put("/statuses/:id", async (req, res) => {
-    const status = await status_repository.update(req.params.id, req.body);
+    const status = await status_repository.update({
+      status_id: req.params.id,
+      ...req.body,
+    });
     res.json(status);
   });
 

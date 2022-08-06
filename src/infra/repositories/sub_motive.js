@@ -11,7 +11,7 @@ class SubMotiveRepository {
 
   async find_by_id(id) {
     const { rows } = await this.db.query(
-      `select submotive_id, motive_id, name, created_at, deleted_at from sub_motives
+      `select submotive_id, motive_id, name, created_at, deleted_at from status_submotives
       where submotive_id = $1
       limit 1`,
       [id]
@@ -22,7 +22,7 @@ class SubMotiveRepository {
 
   async find_all() {
     const { rows } = await this.db.query(
-      `select submotive_id, motive_id, name, created_at, deleted_at from sub_motives`
+      `select submotive_id, motive_id, name, created_at, deleted_at from status_submotives`
     );
 
     return rows.map(this.serialyze);
@@ -30,7 +30,7 @@ class SubMotiveRepository {
 
   async create(sub_motive) {
     const { rows } = await this.db.query(
-      `insert into sub_motives (motive_id, name, created_at) values ($1, $2, $3) returning submotive_id`,
+      `insert into status_submotives (motive_id, name, created_at) values ($1, $2, $3) returning submotive_id`,
       [sub_motive.motive_id, sub_motive.name, sub_motive.created_at]
     );
 
@@ -39,7 +39,7 @@ class SubMotiveRepository {
 
   async update(sub_motive) {
     const { rows } = await this.db.query(
-      `update sub_motives set motive_id = $1, name = $2, deleted_at = $3 where submotive_id = $4 returning submotive_id`,
+      `update status_submotives set motive_id = $1, name = $2, deleted_at = $3 where submotive_id = $4 returning submotive_id`,
       [
         sub_motive.motive_id,
         sub_motive.name,
@@ -53,7 +53,7 @@ class SubMotiveRepository {
 
   async delete(id) {
     const { rows } = await this.db.query(
-      `update sub_motives set deleted_at = $1 where submotive_
+      `update status_submotives set deleted_at = $1 where submotive_
       id = $2 returning submotive_id`,
       [new Date(), id]
     );

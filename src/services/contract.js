@@ -31,7 +31,10 @@ const factory = ({ router, contract_repository }) => {
   });
 
   router.put("/contracts/:id", async (req, res) => {
-    const contract = await contract_repository.update(req.params.id, req.body);
+    const contract = await contract_repository.update({
+      contract_id: req.params.id,
+      ...req.body,
+    });
     res.json(contract);
   });
 

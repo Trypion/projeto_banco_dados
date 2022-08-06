@@ -15,7 +15,10 @@ const factory = ({ router, rule_repository }) => {
   });
 
   router.put("/rules/:id", async (req, res) => {
-    const rule = await rule_repository.update(req.params.id, req.body);
+    const rule = await rule_repository.update({
+      rule_id: req.params.id,
+      ...req.body,
+    });
     res.json(rule);
   });
 

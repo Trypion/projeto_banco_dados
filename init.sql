@@ -3,7 +3,7 @@ CREATE DATABASE dev;
 
 CREATE TABLE public.banks
 (
-    bank_id bigint NOT NULL,
+    bank_id SERIAL NOT NULL,
     name character varying(250) NOT NULL,
     created_at date NOT NULL,
     deleted_at date,
@@ -15,7 +15,7 @@ ALTER TABLE IF EXISTS public.banks
 
 CREATE TABLE public.boxes
 (
-    box_id bigint NOT NULL,
+    box_id SERIAL NOT NULL,
     bank_id bigint NOT NULL,
     "number" bigint NOT NULL,
     name character varying(250) NOT NULL,
@@ -35,7 +35,7 @@ ALTER TABLE IF EXISTS public.boxes
 
 CREATE TABLE public.rules
 (
-    rule_id bigint NOT NULL,
+    rule_id SERIAL NOT NULL,
     box_id bigint NOT NULL,
     name character varying(250) NOT NULL,
     field character varying(250) NOT NULL,
@@ -56,7 +56,7 @@ ALTER TABLE IF EXISTS public.rules
 
 CREATE TABLE public.clients
 (
-    client_id bigint NOT NULL,
+    client_id SERIAL NOT NULL,
     name character varying(250) NOT NULL,
     cpf character varying(250) NOT NULL,
     phone character varying(250),
@@ -70,7 +70,7 @@ ALTER TABLE IF EXISTS public.clients
 
 CREATE TABLE public.analysts
 (
-    analyst_id bigint NOT NULL,
+    analyst_id SERIAL NOT NULL,
     name character varying(250) NOT NULL,
     created_at date NOT NULL,
     deleted_at date,
@@ -82,7 +82,7 @@ ALTER TABLE IF EXISTS public.analysts
 
 CREATE TABLE public.status
 (
-    status_id bigint NOT NULL,
+    status_id SERIAL NOT NULL,
     name character varying(250) NOT NULL,
     created_at date NOT NULL,
     deleted_at date,
@@ -95,7 +95,7 @@ ALTER TABLE IF EXISTS public.status
 
 CREATE TABLE public.contracts
 (
-    contract_id bigint NOT NULL,
+    contract_id SERIAL NOT NULL,
     client_id bigint NOT NULL,
     box_id bigint NOT NULL,
     status_id bigint NOT NULL,
@@ -125,7 +125,7 @@ ALTER TABLE IF EXISTS public.contracts
 
 CREATE TABLE public.contract_events
 (
-    contract_event_id bigint NOT NULL,
+    contract_event_id SERIAL NOT NULL,
     contract_id bigint NOT NULL,
     analyst_id bigint NOT NULL,
     name character varying(250) NOT NULL,
@@ -148,7 +148,7 @@ ALTER TABLE IF EXISTS public.contract_events
 
 CREATE TABLE public.status_motives
 (
-    motive_id bigint NOT NULL,
+    motive_id SERIAL NOT NULL,
     status_id bigint NOT NULL,
     name character varying(250) NOT NULL,
     created_at date NOT NULL,
@@ -166,7 +166,7 @@ ALTER TABLE IF EXISTS public.status_motives
 
 CREATE TABLE public.status_submotives
 (
-    submotive_id bigint NOT NULL,
+    submotive_id SERIAL NOT NULL,
     motive_id bigint NOT NULL,
     name character varying(250) NOT NULL,
     created_at date NOT NULL,
@@ -184,7 +184,7 @@ ALTER TABLE IF EXISTS public.status_submotives
 
 CREATE TABLE public.event_submotive
 (
-    id bigint NOT NULL,
+    id SERIAL NOT NULL,
     contract_event_id bigint NOT NULL,
     submotive_id bigint NOT NULL,
     PRIMARY KEY (id),
@@ -205,214 +205,214 @@ ALTER TABLE IF EXISTS public.event_submotive
 
 
 INSERT INTO public.banks(
-	bank_id, name, created_at)
-	VALUES (1, 'bradesco', '2020-03-01');
+	name, created_at)
+	VALUES ('bradesco', '2020-03-01');
 	
 INSERT INTO public.banks(
-	bank_id, name, created_at)
-	VALUES (2, 'itau', '2020-03-01');
+	name, created_at)
+	VALUES ('itau', '2020-03-01');
 	
 INSERT INTO public.banks(
-	bank_id, name, created_at)
-	VALUES (3, 'santander', '2020-03-01');
+	name, created_at)
+	VALUES ('santander', '2020-03-01');
 
 
 INSERT INTO public.boxes(
-	box_id, bank_id, "number", name, created_at)
-	VALUES (1, 1, 1, 'gaveta 1', '2020-04-01');
+	bank_id, "number", name, created_at)
+	VALUES (1, 1, 'gaveta 1', '2020-04-01');
 	
 INSERT INTO public.boxes(
-	box_id, bank_id, "number", name, created_at)
-	VALUES (2, 1, 2, 'gaveta 2', '2020-04-01');
+	bank_id, "number", name, created_at)
+	VALUES (1, 2, 'gaveta 2', '2020-04-01');
 	
 INSERT INTO public.boxes(
-	box_id, bank_id, "number", name, created_at)
-	VALUES (3, 2, 1, 'gaveta 1', '2020-04-01');
+	bank_id, "number", name, created_at)
+	VALUES (2, 1, 'gaveta 1', '2020-04-01');
 	
 INSERT INTO public.boxes(
-	box_id, bank_id, "number", name, created_at)
-	VALUES (4, 3, 1, 'gaveta 1', '2020-04-01');
+	bank_id, "number", name, created_at)
+	VALUES (3, 1, 'gaveta 1', '2020-04-01');
 
 INSERT INTO public.clients(
-	client_id, name, cpf, phone, created_at)
-	VALUES (1, 'Joao', '14154805088', '49999999999', '2020-04-01');
+	name, cpf, phone, created_at)
+	VALUES ('Joao', '14154805088', '49999999999', '2020-04-01');
 
 INSERT INTO public.clients(
-	client_id, name, cpf, phone, created_at)
-	VALUES (2, 'Pedro', '05810282016', '49999999999', '2020-04-01');
+	name, cpf, phone, created_at)
+	VALUES ('Pedro', '05810282016', '49999999999', '2020-04-01');
 	
 INSERT INTO public.clients(
-	client_id, name, cpf, phone, created_at)
-	VALUES (3, 'Lucas', '93376181098', '49999999999', '2020-04-01');
+	name, cpf, phone, created_at)
+	VALUES ('Lucas', '93376181098', '49999999999', '2020-04-01');
 
 INSERT INTO public.rules(
-	rule_id, box_id, name, field, operator, value, created_at)
-	VALUES (1, 1, 'regra 1', 'value', 'lower', '2000', '2020-04-01');
+	box_id, name, field, operator, value, created_at)
+	VALUES (1, 'regra 1', 'value', 'lower', '2000', '2020-04-01');
 	
 INSERT INTO public.rules(
-	rule_id, box_id, name, field, operator, value, created_at)
-	VALUES (2, 1, 'regra 2', 'value', 'greater', '5000', '2020-04-01');
+	box_id, name, field, operator, value, created_at)
+	VALUES (1, 'regra 2', 'value', 'greater', '5000', '2020-04-01');
 	
 INSERT INTO public.rules(
-	rule_id, box_id, name, field, operator, value, created_at)
-	VALUES (3, 2, 'regra 1', 'value', 'greater', '2000', '2020-04-01');
+	box_id, name, field, operator, value, created_at)
+	VALUES (2, 'regra 1', 'value', 'greater', '2000', '2020-04-01');
 	
 INSERT INTO public.rules(
-	rule_id, box_id, name, field, operator, value, created_at)
-	VALUES (4, 3, 'regra 1', 'value', 'greater', '2000', '2020-04-01');
+	box_id, name, field, operator, value, created_at)
+	VALUES (3, 'regra 1', 'value', 'greater', '2000', '2020-04-01');
 	
 INSERT INTO public.rules(
-	rule_id, box_id, name, field, operator, value, created_at)
-	VALUES (5, 4, 'regra 1', 'value', 'greater', '2000', '2020-04-01');
+	box_id, name, field, operator, value, created_at)
+	VALUES (4, 'regra 1', 'value', 'greater', '2000', '2020-04-01');
 
 INSERT INTO public.status(
-	status_id, name, created_at)
-	VALUES (1, 'aguardando analise', '2020-04-01');
+	name, created_at)
+	VALUES ('aguardando analise', '2020-04-01');
 	
 INSERT INTO public.status(
-	status_id, name, created_at)
-	VALUES (2, 'aprovado', '2020-04-01');
+	name, created_at)
+	VALUES ('aprovado', '2020-04-01');
 	
 INSERT INTO public.status(
-	status_id, name, created_at)
-	VALUES (3, 'recusado', '2020-04-01');
+	name, created_at)
+	VALUES ('recusado', '2020-04-01');
 	
 INSERT INTO public.status(
+	name, created_at)
+	VALUES ('pendente', '2020-04-01');
+
+INSERT INTO public.status_motives(
 	status_id, name, created_at)
-	VALUES (4, 'pendente', '2020-04-01');
+	VALUES (1, 'motivo 1', '2020-04-01');
 
 INSERT INTO public.status_motives(
-	motive_id, status_id, name, created_at)
-	VALUES (1, 1, 'motivo 1', '2020-04-01');
-
-INSERT INTO public.status_motives(
-	motive_id, status_id, name, created_at)
-	VALUES (2, 2, 'motivo 1', '2020-04-01');
+	status_id, name, created_at)
+	VALUES (2, 'motivo 1', '2020-04-01');
 	
 INSERT INTO public.status_motives(
-	motive_id, status_id, name, created_at)
-	VALUES (3, 3, 'motivo 1', '2020-04-01');
+	status_id, name, created_at)
+	VALUES (3, 'motivo 1', '2020-04-01');
 	
 INSERT INTO public.status_motives(
-	motive_id, status_id, name, created_at)
-	VALUES (4, 4, 'motivo 1', '2020-04-01');
+	status_id, name, created_at)
+	VALUES (4, 'motivo 1', '2020-04-01');
 	
 INSERT INTO public.status_motives(
-	motive_id, status_id, name, created_at)
-	VALUES (5, 1, 'motivo 2', '2020-04-01');
+	status_id, name, created_at)
+	VALUES (1, 'motivo 2', '2020-04-01');
 
 INSERT INTO public.status_submotives(
-	submotive_id, motive_id, name, created_at)
-	VALUES (1, 1, 'submotive 1', '2020-04-01');
+	motive_id, name, created_at)
+	VALUES (1, 'submotive 1', '2020-04-01');
 	
 INSERT INTO public.status_submotives(
-	submotive_id, motive_id, name, created_at)
-	VALUES (2, 1, 'submotive 1', '2020-04-01');
+	motive_id, name, created_at)
+	VALUES (1, 'submotive 1', '2020-04-01');
 	
 INSERT INTO public.status_submotives(
-	submotive_id, motive_id, name, created_at)
-	VALUES (3, 1, 'submotive 2', '2020-04-01');	
+	motive_id, name, created_at)
+	VALUES (1, 'submotive 2', '2020-04-01');	
 	
 INSERT INTO public.status_submotives(
-	submotive_id, motive_id, name, created_at)
-	VALUES (4, 3, 'submotive 1', '2020-04-01');
+	motive_id, name, created_at)
+	VALUES (3, 'submotive 1', '2020-04-01');
 	
 INSERT INTO public.status_submotives(
-	submotive_id, motive_id, name, created_at)
-	VALUES (5, 4, 'submotive 1', '2020-04-01');	
+	motive_id, name, created_at)
+	VALUES (4, 'submotive 1', '2020-04-01');	
 	
 INSERT INTO public.status_submotives(
-	submotive_id, motive_id, name, created_at)
-	VALUES (6, 5, 'submotive 1', '2020-04-01');
+	motive_id, name, created_at)
+	VALUES (5, 'submotive 1', '2020-04-01');
 
 INSERT INTO public.contracts(
-	contract_id, client_id, box_id, status_id, value, created_at)
-	VALUES (1, 1, 1, 1, 2000, '2020-04-01');
+	client_id, box_id, status_id, value, created_at)
+	VALUES (1, 1, 1, 2000, '2020-04-01');
 
 INSERT INTO public.contracts(
-	contract_id, client_id, box_id, status_id, value, created_at)
-	VALUES (2, 2, 2, 3, 5000, '2020-04-01');
+	client_id, box_id, status_id, value, created_at)
+	VALUES (2, 2, 3, 5000, '2020-04-01');
 	
 INSERT INTO public.contracts(
-	contract_id, client_id, box_id, status_id, value, created_at)
-	VALUES (3, 3, 3, 4, 10000, '2020-04-01');
+	client_id, box_id, status_id, value, created_at)
+	VALUES (3, 3, 4, 10000, '2020-04-01');
 	
 INSERT INTO public.contracts(
-	contract_id, client_id, box_id, status_id, value, created_at)
-	VALUES (4, 1, 4, 2, 11500, '2020-04-01');
+	client_id, box_id, status_id, value, created_at)
+	VALUES (1, 4, 2, 11500, '2020-04-01');
 
 INSERT INTO public.analysts(
-	analyst_id, name, created_at)
-	VALUES (1, 'Salvador', '2020-04-01');
+	name, created_at)
+	VALUES ('Salvador', '2020-04-01');
 	
 INSERT INTO public.analysts(
-	analyst_id, name, created_at)
-	VALUES (2, 'Rodrigo', '2020-04-01');
+	name, created_at)
+	VALUES ('Rodrigo', '2020-04-01');
 	
 INSERT INTO public.analysts(
-	analyst_id, name, created_at)
-	VALUES (3, 'Getulio', '2020-04-01');
+	name, created_at)
+	VALUES ('Getulio', '2020-04-01');
 
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (1, 1, 1, 'inserido', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (1, 1, 'inserido', '2020-04-01');
 	
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (2, 2, 1, 'inserido', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (2, 1, 'inserido', '2020-04-01');
 	
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (3, 3, 1, 'inserido', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (3, 1, 'inserido', '2020-04-01');
 	
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (4, 4, 1, 'inserido', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (4, 1, 'inserido', '2020-04-01');
 	
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (5, 4, 2, 'aprovado', '2020-04-02');
+	contract_id, analyst_id, name, created_at)
+	VALUES (4, 2, 'aprovado', '2020-04-02');
 	
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (6, 4, 2, 'pendente', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (4, 2, 'pendente', '2020-04-01');
 
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (7, 3, 3, 'pendente', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (3, 3, 'pendente', '2020-04-01');
 
 INSERT INTO public.contract_events(
-	contract_event_id, contract_id, analyst_id, name, created_at)
-	VALUES (8, 2, 2, 'recusado', '2020-04-01');
+	contract_id, analyst_id, name, created_at)
+	VALUES (2, 2, 'recusado', '2020-04-01');
 
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (1, 5, 1);
+	contract_event_id, submotive_id)
+	VALUES (5, 1);
 	
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (2, 6, 2);
+	contract_event_id, submotive_id)
+	VALUES (6, 2);
 
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (3, 7, 3);
+	contract_event_id, submotive_id)
+	VALUES (7, 3);
 	
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (4, 8, 1);
+	contract_event_id, submotive_id)
+	VALUES (8, 1);
 	
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (5, 5, 2);
+	contract_event_id, submotive_id)
+	VALUES (5, 2);
 	
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (6, 6, 2);
+	contract_event_id, submotive_id)
+	VALUES (6, 2);
 	
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (7, 1, 1);
+	contract_event_id, submotive_id)
+	VALUES (1, 1);
 	
 INSERT INTO public.event_submotive(
-	id, contract_event_id, submotive_id)
-	VALUES (8, 1, 1);
+	contract_event_id, submotive_id)
+	VALUES (1, 1);

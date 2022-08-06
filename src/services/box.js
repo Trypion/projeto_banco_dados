@@ -15,7 +15,10 @@ const factory = ({ router, box_repository }) => {
   });
 
   router.put("/box/:id", async (req, res) => {
-    const box = await box_repository.update(req.params.id, req.body);
+    const box = await box_repository.update({
+      box_id: req.params.id,
+      ...req.body,
+    });
     res.json(box);
   });
 

@@ -11,7 +11,7 @@ class StatusRepository {
 
   async find_by_id(id) {
     const { rows } = await this.db.query(
-      `select status_id, name, created_at, deleted_at from statuses
+      `select status_id, name, created_at, deleted_at from status
       where status_id = $1
       limit 1`,
       [id]
@@ -22,7 +22,7 @@ class StatusRepository {
 
   async find_all() {
     const { rows } = await this.db.query(
-      `select status_id, name, created_at, deleted_at from statuses`
+      `select status_id, name, created_at, deleted_at from status`
     );
 
     return rows.map(this.serialyze);
@@ -30,7 +30,7 @@ class StatusRepository {
 
   async create(status) {
     const { rows } = await this.db.query(
-      `insert into statuses (name, created_at) values ($1, $2) returning status_id`,
+      `insert into status (name, created_at) values ($1, $2) returning status_id`,
       [status.name, status.created_at]
     );
 
@@ -39,7 +39,7 @@ class StatusRepository {
 
   async update(status) {
     const { rows } = await this.db.query(
-      `update statuses set name = $1, deleted_at = $2 where status_id = $3 returning status_id`,
+      `update status set name = $1, deleted_at = $2 where status_id = $3 returning status_id`,
       [status.name, status.deleted_at, status.status_id]
     );
 
@@ -48,7 +48,7 @@ class StatusRepository {
 
   async delete(id) {
     const { rows } = await this.db.query(
-      `update statuses set deleted_at = $1 where status_id = $2 returning status_id`,
+      `update status set deleted_at = $1 where status_id = $2 returning status_id`,
       [new Date(), id]
     );
 

@@ -20,7 +20,7 @@ class ContractRepository {
   }
 
   async contract_history(id) {
-    const { rows } = await this.tb.query(
+    const { rows } = await this.db.query(
       `select analysts.name as analyst_name, ce.name as contract_event_name, ce.created_at from contract_events ce
       join analysts using (analyst_id)
       where contract_id = $1
@@ -32,11 +32,11 @@ class ContractRepository {
   }
 
   async all_contracts_details() {
-    const { rows } = await this.tb.query(`
+    const { rows } = await this.db.query(`
     select clients.name as client_name, banks.name as bank_name, contracts.value, contracts.created_at from contracts
     join clients using(client_id)
     join boxes using(box_id)
-    join banks using(box_id)`);
+    join banks using(bank_id)`);
 
     return rows;
   }

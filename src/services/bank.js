@@ -15,7 +15,10 @@ const factory = ({ router, bank_repository }) => {
   });
 
   router.put("/banks/:id", async (req, res) => {
-    const bank = await bank_repository.update(req.params.id, req.body);
+    const bank = await bank_repository.update({
+      bank_id: req.params.id,
+      ...req.body,
+    });
     res.json(bank);
   });
 
